@@ -99,7 +99,7 @@ local function setup_lsp_keymaps(ev)
 end
 
 return {
-  { "onsails/lspkind.nvim",event = "VeryLazy", lazy = true },
+  { "onsails/lspkind.nvim", event = "VeryLazy", lazy = true },
   {
     "folke/neoconf.nvim",
     event = "VeryLazy",
@@ -178,7 +178,7 @@ return {
     config = function()
       require("ufo").setup({
         provider_selector = function(bufnr, filetype, buftype)
-         return { "treesitter" }
+          return { "treesitter" }
         end,
       })
     end,
