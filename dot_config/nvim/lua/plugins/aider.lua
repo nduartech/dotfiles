@@ -5,4 +5,5 @@ return {
       default_bindings = false
     })
   end,
+  event = "VeryLazy"
 }

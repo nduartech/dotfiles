@@ -6,7 +6,7 @@ return {
     dependencies = {
       'leafo/magick',
     },
-
+    event = 'VeryLazy',
     config = function()
       -- default config
       require("image").setup({

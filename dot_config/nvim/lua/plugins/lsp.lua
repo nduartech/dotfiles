@@ -99,15 +99,17 @@ local function setup_lsp_keymaps(ev)
 end
 
 return {
-  { "onsails/lspkind.nvim", lazy = true },
+  { "onsails/lspkind.nvim",event = "VeryLazy", lazy = true },
   {
     "folke/neoconf.nvim",
+    event = "VeryLazy",
     lazy = true,
     cmd = "Neoconf",
     config = true,
   },
   {
     "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     cmd = "DapUiToggle",
     config = function()
@@ -120,6 +122,7 @@ return {
   },
   {
     "folke/lazydev.nvim",
+    event = "VeryLazy",
     ft = "lua",
     opts = {
       library = { plugins = { "nvim-dap-ui" } },
@@ -133,6 +136,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
+    event = "VeryLazy",
     cmd = "Mason",
     build = ":MasonUpdate",
     config = true
@@ -163,6 +167,7 @@ return {
   },
   {
     "smjonas/inc-rename.nvim",
+    event = "VeryLazy",
     cmd = "IncRename",
     config = true
   },
@@ -173,11 +178,7 @@ return {
     config = function()
       require("ufo").setup({
         provider_selector = function(bufnr, filetype, buftype)
-          if filetype == "go" or filetype == "lua" or filetype == "python" then
-            return { "treesitter" }
-          else
-            return { "lsp" }
-          end
+         return { "treesitter" }
         end,
       })
     end,
@@ -203,12 +204,14 @@ return {
   },
   {
     "pmizio/typescript-tools.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     ft = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
     opts = {},
   },
   {
     "hedyhli/outline.nvim",
+    event = "VeryLazy",
     cmd = "Outline",
     config = true
   },

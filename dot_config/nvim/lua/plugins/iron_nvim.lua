@@ -1,5 +1,6 @@
 return {
   'Vigemus/iron.nvim',
+  event = 'VeryLazy',
   config = function()
     local iron = require("iron.core")
 

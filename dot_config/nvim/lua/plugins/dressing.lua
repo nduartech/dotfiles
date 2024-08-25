@@ -24,4 +24,5 @@ return {
       },
     })
   end,
+  event = "VeryLazy"
 }
