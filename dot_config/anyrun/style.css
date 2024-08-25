@@ -1,0 +1,19 @@
+#entry {
+  border: 1px solid #bb9af7;
+  box-shadow: 0px 0px 10px #000000;
+  background-color: #24283b;
+}
+
+#window {
+  background-color: transparent;
+}
+
+#main {
+  background-color: rgba(31,35,53,0.7);
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+#match:selected {
+  background-color: rgba(61,89,161,0.8);
+}

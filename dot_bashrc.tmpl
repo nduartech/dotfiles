@@ -1,0 +1,90 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+
+
+# Homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Neovim
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+#Zoxide
+export PATH="$PATH:$HOME/.local/bin"
+eval "$(zoxide init bash)"
+
+# Starship
+show_newline() {
+  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
+    NEW_LINE_BEFORE_PROMPT=1
+  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 0 ]; then
+    NEW_LINE_BEFORE_PROMPT=1
+  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
+    echo ""
+  fi
+}
+
+reset_newline() {
+  NEW_LINE_BEFORE_PROMPT=0
+  clear
+}
+
+PROMPT_COMMAND="show_newline"
+eval "$(starship init bash)"
+
+
+
+alias ls="eza -a"
+alias cat=bat
+alias n=nvim
+alias clear="reset_newline"
+
+. "$HOME/.cargo/env"
+
+# fnm
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+eval "$(fnm env --use-on-cd)"
+export PATH="$PATH:$HOME/go/bin"
+source ~/.local/share/blesh/ble.sh
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+export TEMPL_EXPERIMENT=rawgo
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/home/nathan/.local/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/home/nathan';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+alias mm=micromamba
+alias aid=~/.aider.sh
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib/mojo
+export PATH=$PATH:~/.modular/pkg/packages.modular.com_mojo/bin/
+export LD_LIBRARY_PATH=/home/nathan/.local/lib/arch-mojo:$LD_LIBRARY_PATH
+alias lzd='lazydocker'
+export DOCKER_HOST=~/.config/colima/docker.sock
+export GROQ_API_KEY={{ .groq }}

@@ -1,0 +1,23 @@
+[org/gnome/desktop/wm/preferences]
+button-layout=':minimize,maximize,close'
+
+[org/gnome/desktop/interface]
+icon-theme='Tokyonight-Light'
+gtk-theme='Tokyonight-Dark-Storm-B-MB-Dark-Storm'
+cursor-theme='elementary'
+cursor-size=24
+font-name='Cantarell 11'
+font-hinting='slight'
+font-antialiasing='grayscale'
+font-rgba-order='rgb'
+text-scaling-factor=0.75
+toolbar-style='both-horiz'
+toolbar-icons-size='small'
+color-scheme='default'
+
+[org/gnome/desktop/a11y/applications]
+screen-reader-enabled=false
+
+[org/gnome/desktop/sound]
+event-sounds=true
+input-feedback-sounds=false
