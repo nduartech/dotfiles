@@ -4,7 +4,8 @@ local servers = {
   "html","htmx", "gopls", "jsonls", "biome", "lua_ls", "marksman",
   "mdx_analyzer", "basedpyright", "ruff", "sqlls", "svelte", "taplo",
   "tailwindcss", "templ", "gitlab_ci_ls", "yamlls", "vtsls",
-  "prismals","snyk_ls","typst_lsp","vacuum","zls"
+  "prismals","typst_lsp","vacuum","zls",
+  -- "snyk_ls"
 }
 
 local function config_cmp()
@@ -307,11 +308,11 @@ return {
         settings = { Lua = { hint = { enable = true } } },
       }) 
 
-      setup_server("snyk_ls", {
-        init_options = {
-          token = os.getenv("SNYK_TOKEN")
-        }
-      })
+      -- setup_server("snyk_ls", {
+      --   init_options = {
+      --     token = os.getenv("SNYK_TOKEN")
+      --   }
+      -- })
 
       setup_server("tailwindcss", {
         filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ" },
