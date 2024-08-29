@@ -16,7 +16,7 @@ return {
             command = { "bash" }
           },
           python = {
-            command = { "/home/nathan/.mainPy/bin/python" }, -- or { "ipython", "--no-autoindent" }
+            command = { "/home/nathan/envs/.mainPy/bin/python" }, -- or { "ipython", "--no-autoindent" }
             format = require("iron.fts.common").bracketed_paste_python
           }
         },
@@ -34,9 +34,9 @@ return {
         send_paragraph = "<space>sp",
         send_until_cursor = "<space>su",
         send_mark = "<space>sm",
-        mark_motion = "<space>mc",
-        mark_visual = "<space>mc",
-        remove_mark = "<space>md",
+        mark_motion = "<space>Mc",
+        mark_visual = "<space>Mc",
+        remove_mark = "<space>Md",
         cr = "<space>s<cr>",
         interrupt = "<space>s<space>",
         exit = "<space>sq",

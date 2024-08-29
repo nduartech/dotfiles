@@ -1,9 +1,10 @@
 local servers = {
-  "astro", "bashls", "cssls", "cssmodules_ls", "css_variables", "unocss",
+  "angularls","astro", "bashls", "cssls", "cssmodules_ls", "css_variables", "unocss",
   "dockerls", "docker_compose_language_service", "emmet_language_server",
-  "html", "htmx", "gopls", "jsonls", "biome", "lua_ls", "marksman",
-  "mdx_analyzer", "pyright", "ruff", "sqlls", "svelte", "taplo",
-  "tailwindcss", "templ", "gitlab_ci_ls", "yamlls"
+  "html","htmx", "gopls", "jsonls", "biome", "lua_ls", "marksman",
+  "mdx_analyzer", "basedpyright", "ruff", "sqlls", "svelte", "taplo",
+  "tailwindcss", "templ", "gitlab_ci_ls", "yamlls", "vtsls",
+  "prismals","snyk_ls","typst_lsp","vacuum","zls"
 }
 
 local function config_cmp()
@@ -102,8 +103,7 @@ return {
   { "onsails/lspkind.nvim", event = "VeryLazy", lazy = true },
   {
     "folke/neoconf.nvim",
-    event = "VeryLazy",
-    lazy = true,
+    lazy = false,
     cmd = "Neoconf",
     config = true,
   },
@@ -202,13 +202,8 @@ return {
       })
     end,
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    ft = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-    opts = {},
-  },
+
+
   {
     "hedyhli/outline.nvim",
     event = "VeryLazy",
@@ -253,17 +248,13 @@ return {
       end
 
       -- Custom setups
-      setup_server("astro", {
-        filetypes = { "astro" }
-      })
-
-      setup_server("unocss", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte" },
+           setup_server("unocss", {
+        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte","javascriptreact", "rescript", "typescriptreact", "vue" },
         init_options = { userLanguages = { templ = "html" } },
       })
 
       setup_server("emmet_language_server", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte", "templ" },
+        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte", "templ", "css", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular" },
         init_options = { userLanguages = { templ = "html" } },
       })
 
@@ -282,13 +273,9 @@ return {
           },
         },
       })
-
-      setup_server("html", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "svelte" },
-      })
-
-      setup_server("htmx", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "svelte" },
+ 
+      setup_server("vtsls", {
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "astro", "svelte" }
       })
 
       setup_server('jdtls', {
@@ -318,17 +305,16 @@ return {
           })
         end,
         settings = { Lua = { hint = { enable = true } } },
-      })
+      }) 
 
-      setup_server("pyright", {
-        settings = {
-          pyright = { disableOrganizeImports = true },
-          python = { analysis = { ignore = { '*' }, typeCheckingMode = 'off' } },
+      setup_server("snyk_ls", {
+        init_options = {
+          token = os.getenv("SNYK_TOKEN")
         }
       })
 
       setup_server("tailwindcss", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte" },
+        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ" },
         init_options = { userLanguages = { templ = "html" } },
         cmd = { "tailwindcss-language-server", "--stdio" },
         on_new_config = function(new_config)
@@ -356,4 +342,138 @@ return {
       })
     end,
   },
+  {
+    "kosayoda/nvim-lightbulb",
+    enabled = true,
+    event = { "LspAttach" },
+    opts = {
+      priority = 10,
+      hide_in_unfocused_buffer = true,
+      link_highlights = true,
+      validate_config = "auto",
+      action_kinds = nil,
+      sign = {
+        enabled = true,
+        text = "💡",
+        hl = "LightBulbSign",
+      },
+      virtual_text = { enabled = false },
+      float = { enabled = false },
+      status_text = { enabled = false },
+      number = { enabled = false },
+      line = { enabled = false },
+      autocmd = {
+        enabled = true,
+        updatetime = 200,
+        events = { "CursorHold", "CursorHoldI" },
+        pattern = { "*" },
+      },
+      ignore = {
+        clients = {},
+        ft = {},
+        actions_without_kind = false,
+      },
+    },
+  },
+  {
+    "aznhe21/actions-preview.nvim",
+    enabled = true,
+    opts = {
+      diff = {
+        ctxlen = 3,
+      },
+      backend = { "telescope", "nui" },
+      telescope = {
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.8,
+          height = 0.9,
+          prompt_position = "top",
+          preview_cutoff = 20,
+          preview_height = function(_, _, max_lines)
+            return max_lines - 15
+          end,
+        },
+      },
+    },
+  },
+  {
+    "RRethy/vim-illuminate",
+    enabled = true,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      delay = 200,
+      large_file_cutoff = 2000,
+      providers = {
+        "lsp",
+        -- "treesitter",
+        -- "regex",
+      },
+      large_file_overrides = {
+        providers = {},
+      },
+      filetypes_denylist = {
+        "TelescopePrompt",
+        "aerial",
+        "dirbuf",
+        "dirvish",
+        "fugitive",
+        "neo-tree",
+        "text",
+        "toggleterm",
+      },
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+
+      local function map(key, dir, buffer)
+        vim.keymap.set("n", key, function()
+          require("illuminate")["goto_" .. dir .. "_reference"](true)
+        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+      end
+
+      map("]]", "next")
+      map("[[", "prev")
+
+      -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          map("]]", "next", buffer)
+          map("[[", "prev", buffer)
+        end,
+      })
+    end,
+    keys = {
+      { "]]", desc = "Next reference" },
+      { "[[", desc = "Prev reference" },
+    },
+  }, {
+  "icholy/lsplinks.nvim",
+  keys = {
+    {
+      "gx",
+      function()
+        require("lsplinks").gx()
+      end,
+      mode = { "n" },
+      desc = "Open link",
+    },
+  },
+  opts = {
+    highlight = true,
+    hl_group = "Underlined",
+  },
+},
+ {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+        require('lspsaga').setup({})
+    end,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter', -- optional
+        'nvim-tree/nvim-web-devicons',     -- optional
+    }, event = 'LspAttach'
 }
+  }
