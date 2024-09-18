@@ -82,11 +82,20 @@ unset __mamba_setup
 alias mm=micromamba
 alias aid=~/.aider.sh
 
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib/mojo
 export PATH=$PATH:~/.modular/pkg/packages.modular.com_mojo/bin/
 export LD_LIBRARY_PATH=/home/nathan/.local/lib/arch-mojo:$LD_LIBRARY_PATH
 alias lzd='lazydocker'
-export DOCKER_HOST=~/.config/colima/docker.sock
 export GROQ_API_KEY={{ .groq }}
 export SNYK_TOKEN={{ .snyk }}
 mm activate .mainPy
+export VERTEXAI_PROJECT={{ .vertexAI }}
+export VERTEXAI_LOCATION=northamerica-northeast1
+export SRC_ACCESS_TOKEN={{ .sourcegraph }}
+export SRC_ENDPOINT=https://sourcegraph.com
+
+export COLIMA_HOME=$HOME/.colima
+export DOCKER_HOST="unix://${COLIMA_HOME}/service/docker.sock"
+
+export TERMINFO="/usr/share/terminfo"

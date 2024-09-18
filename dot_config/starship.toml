@@ -37,26 +37,26 @@ symbol = '🧞'
 
 [hostname]
 ssh_only = false
-format = '[from ](bold italic comment)🌎 '
+format = '[from ](bold italic comment)🌎'
 disabled = true
 # disabled = false
 
 [git_branch]
-format = '[under 🌱 $branch ]( green)'
+format = '[under 🌱 $branch ](green)'
 
 
 [git_status]
-conflicted = '[$count ](git_delete)'
-ahead = '[${count} ](git_add)'
-behind = '[${count} ](git_delete)'
-diverged = '[${ahead_count} ](git_add)[${behind_count} ](git_delete)'
+conflicted = '[$count](git_delete)'
+ahead = '[${count}](git_add)'
+behind = '[${count}](git_delete)'
+diverged = '[${ahead_count}](git_add)[${behind_count} ](git_delete)'
 up_to_date = '[󰸞](green)'
-untracked = '[$count ](dark3)'
-stashed = '[$count ](yellow)'
+untracked = '[$count](dark3)'
+stashed = '[$count](yellow)'
 modified = '[ ](git_change)'
-staged = '[+$count ](git_add)'
-renamed = '[󱍵$count ](git_change)'
-deleted = '[$count ](git_delete)'
+staged = '[+$count](git_add)'
+renamed = '[󱍵$count](git_change)'
+deleted = '[$count](git_delete)'
 format = '([\[$all_status$ahead_behind\]]($style) )'
 style = 'bold comment'
 
@@ -169,6 +169,10 @@ use_12hr = true
 
 [line_break]
 disabled = true
+
+[gcloud]
+format = 'on [$symbol(\($region\))]($style)'
+symbol = '☁️ '
 
 # format = """
 # [░▒▓](#7aa2f7)\

@@ -211,19 +211,35 @@ return {
     cmd = "Outline",
     config = true
   },
+  -- {
+  --   "supermaven-inc/supermaven-nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("supermaven-nvim").setup({
+  --       keymaps = {
+  --         accept_suggestion = "<F13>",
+  --         clear_suggestion = "<C-Esc>",
+  --         accept_word = "<F25>"
+  --       },
+  --     })
+  --   end
+  -- },
   {
-    "supermaven-inc/supermaven-nvim",
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+ 
+    -- If you have a recent version of lazy.nvim, you don't need to add this!
+    -- build = "nvim -l build/init.lua",
     event = "VeryLazy",
-    config = function()
-      require("supermaven-nvim").setup({
-        keymaps = {
-          accept_suggestion = "<F13>",
-          clear_suggestion = "<C-Esc>",
-          accept_word = "<F25>"
-        },
-      })
+    config = function ()
+      require("sg").setup({})
     end
   },
+  {
+  'mrcjkb/rustaceanvim',
+  version = '^5', -- Recommended
+  lazy = false, -- This plugin is already lazy
+},
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
