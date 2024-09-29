@@ -102,6 +102,7 @@ end
 
 return {
   { "onsails/lspkind.nvim", event = "VeryLazy", lazy = true },
+  {"elkowar/yuck.vim", event = "VeryLazy", lazy=true},
   {
     "folke/neoconf.nvim",
     lazy = false,

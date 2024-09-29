@@ -1,0 +1,86 @@
+(defpoll workspaces0 :interval "250ms"
+  "sh ./get-workspaces.sh 0")
+(defpoll workspaces1 :interval "250ms"
+  "sh ./get-workspaces.sh 1")
+(defpoll time :interval "1s"
+  "sh ./get-time.sh")
+(defpoll network :interval "5s"
+  "sh ./get-network.sh")
+(defpoll volume :interval "1s"
+  "sh ./get-volume.sh")
+(defpoll cpu_ram :interval "3s"
+  "sh ./get-cpu-ram.sh")
+(defpoll gpu_vram :interval "3s"
+  "sh ./get-gpu-vram.sh")
+(defwidget barcontent [monitor]
+  (box :class "barcontent"
+       :orientation "h"
+    (left :monitor monitor)
+    (center)
+    (right)))
+(defwidget left [monitor]
+  (box :class "left"
+       :halign "start"
+       :hexpand true
+    (label :text {monitor == 0 ? workspaces0 : workspaces1})))
+(defwidget center []
+  (box :class "center"
+       :halign "center"
+       :hexpand true
+    (label :text time)))
+(defwidget right []
+  (box :class "right"
+       :halign "end"
+       :hexpand true
+    (tray)))
+(defwidget network-widget []
+  (eventbox :onclick "wezterm start btm"
+    (label :text network)))
+(defwidget volume-widget []
+  (eventbox :onscroll "sh ./volume-control.sh {}"
+            :onclick "sh ./volume-control.sh toggle"
+    (label :text volume)))
+(defwidget cpu-ram-widget []
+  (eventbox :onclick "wezterm start btm"
+    (label :text cpu_ram)))
+(defwidget gpu-vram-widget []
+  (eventbox :onclick "wezterm start btm"
+    (label :text gpu_vram)))
+(defwidget tray []
+  (systray :class "tray"
+    :spacing 10
+    :orientation "h"
+    :space-evenly false
+    :icon-size 15
+    :prepend-new true
+    (cpu-ram-widget)
+    (gpu-vram-widget) 
+    (network-widget)
+    (volume-widget)
+    ))
+(defwindow bar1
+  :monitor 1
+  :geometry (geometry :x "0%"
+                      :y "0px"
+                      :width "100%"
+                      :height "10px"
+                      :anchor "top center")
+  :stacking "fg"
+  :reserve (struts :distance "40px" :side "top")
+  :windowtype "dock"
+  :wm-ignore false
+  :exclusive true
+  (barcontent :monitor 1))
+(defwindow bar0
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0px"
+                      :width "100%"
+                      :height "10px"
+                      :anchor "top center")
+  :stacking "fg"
+  :reserve (struts :distance "40px" :side "top")
+  :windowtype "dock"
+  :wm-ignore false
+  :exclusive true
+  (barcontent :monitor 0))

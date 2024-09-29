@@ -82,7 +82,7 @@ unset __mamba_setup
 alias mm=micromamba
 alias aid=~/.aider.sh
 
-
+export PATH=$PATH:~/Projects/myDesktop/eww/target/release
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib/mojo
 export PATH=$PATH:~/.modular/pkg/packages.modular.com_mojo/bin/
 export LD_LIBRARY_PATH=/home/nathan/.local/lib/arch-mojo:$LD_LIBRARY_PATH
@@ -96,6 +96,6 @@ export SRC_ACCESS_TOKEN={{ .sourcegraph }}
 export SRC_ENDPOINT=https://sourcegraph.com
 
 export COLIMA_HOME=$HOME/.colima
-export DOCKER_HOST="unix://${COLIMA_HOME}/service/docker.sock"
+export DOCKER_HOST="unix:///home/nathan/.colima/default/docker.sock"
 
 export TERMINFO="/usr/share/terminfo"
