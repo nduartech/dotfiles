@@ -34,17 +34,17 @@
        :hexpand true
     (tray)))
 (defwidget network-widget []
-  (eventbox :onclick "wezterm start btm"
+  (eventbox :onclick "sh ./open-btm.sh"
     (label :text network)))
 (defwidget volume-widget []
   (eventbox :onscroll "sh ./volume-control.sh {}"
             :onclick "sh ./volume-control.sh toggle"
     (label :text volume)))
 (defwidget cpu-ram-widget []
-  (eventbox :onclick "wezterm start btm"
+  (eventbox :onclick "sh ./open-btm.sh"
     (label :text cpu_ram)))
 (defwidget gpu-vram-widget []
-  (eventbox :onclick "wezterm start btm"
+  (eventbox :onclick "sh ./open-btm.sh"
     (label :text gpu_vram)))
 (defwidget tray []
   (systray :class "tray"
