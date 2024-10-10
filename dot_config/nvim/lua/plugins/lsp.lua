@@ -1,10 +1,10 @@
 local servers = {
-  "angularls","astro", "bashls", "cssls", "cssmodules_ls", "css_variables", "unocss",
+  "angularls", "astro", "bashls", "cssls", "cssmodules_ls", "css_variables", "unocss",
   "dockerls", "docker_compose_language_service", "emmet_language_server",
-  "html","htmx", "gopls", "jsonls", "biome", "lua_ls", "marksman",
+  "html", "htmx", "gopls", "jsonls", "biome", "lua_ls", "marksman",
   "mdx_analyzer", "basedpyright", "ruff", "sqlls", "svelte", "taplo",
   "tailwindcss", "templ", "gitlab_ci_ls", "yamlls", "vtsls",
-  "prismals","typst_lsp","vacuum","zls",
+  "prismals", "typst_lsp", "vacuum", "zls",
   -- "snyk_ls"
 }
 
@@ -32,7 +32,7 @@ local function config_cmp()
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       }),
-      ["<Tab>"] = cmp.mapping(function(fallback)
+      ["<F13>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
@@ -41,7 +41,7 @@ local function config_cmp()
           fallback()
         end
       end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
+      ["<F37>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
@@ -102,7 +102,7 @@ end
 
 return {
   { "onsails/lspkind.nvim", event = "VeryLazy", lazy = true },
-  {"elkowar/yuck.vim", event = "VeryLazy", lazy=true},
+  { "elkowar/yuck.vim",     event = "VeryLazy", lazy = true },
   {
     "folke/neoconf.nvim",
     lazy = false,
@@ -212,35 +212,34 @@ return {
     cmd = "Outline",
     config = true
   },
-  -- {
-  --   "supermaven-inc/supermaven-nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("supermaven-nvim").setup({
-  --       keymaps = {
-  --         accept_suggestion = "<F13>",
-  --         clear_suggestion = "<C-Esc>",
-  --         accept_word = "<F25>"
-  --       },
-  --     })
-  --   end
-  -- },
   {
-    "sourcegraph/sg.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
- 
-    -- If you have a recent version of lazy.nvim, you don't need to add this!
-    -- build = "nvim -l build/init.lua",
-    event = "VeryLazy",
-    config = function ()
-      require("sg").setup({})
-    end
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<Tab>",
+          clear_suggestion = "<C-]>",
+          accept_word = "<C-j>",
+        },
+      })
+    end,
   },
+  --  {
+  --    "sourcegraph/sg.nvim",
+  --    dependencies = { "nvim-lua/plenary.nvim" },
+  --
+  --    -- If you have a recent version of lazy.nvim, you don't need to add this!
+  --    -- build = "nvim -l build/init.lua",
+  --    event = "VeryLazy",
+  --    config = function ()
+  --      require("sg").setup({})
+  --    end
+  --  },
   {
-  'mrcjkb/rustaceanvim',
-  version = '^5', -- Recommended
-  lazy = false, -- This plugin is already lazy
-},
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
@@ -266,8 +265,8 @@ return {
       end
 
       -- Custom setups
-           setup_server("unocss", {
-        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte","javascriptreact", "rescript", "typescriptreact", "vue" },
+      setup_server("unocss", {
+        filetypes = { "html", "templ", "jsx", "tsx", "js", "ts", "astro", "svelte", "javascriptreact", "rescript", "typescriptreact", "vue" },
         init_options = { userLanguages = { templ = "html" } },
       })
 
@@ -291,7 +290,7 @@ return {
           },
         },
       })
- 
+
       setup_server("vtsls", {
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "astro", "svelte" }
       })
@@ -323,7 +322,7 @@ return {
           })
         end,
         settings = { Lua = { hint = { enable = true } } },
-      }) 
+      })
 
       -- setup_server("snyk_ls", {
       --   init_options = {
@@ -484,14 +483,15 @@ return {
     hl_group = "Underlined",
   },
 },
- {
+  {
     'nvimdev/lspsaga.nvim',
     config = function()
-        require('lspsaga').setup({})
+      require('lspsaga').setup({})
     end,
     dependencies = {
-        'nvim-treesitter/nvim-treesitter', -- optional
-        'nvim-tree/nvim-web-devicons',     -- optional
-    }, event = 'LspAttach'
-}
+      'nvim-treesitter/nvim-treesitter',   -- optional
+      'nvim-tree/nvim-web-devicons',       -- optional
+    },
+    event = 'LspAttach'
   }
+}
